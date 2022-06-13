@@ -1,6 +1,6 @@
 from abc import ABC, abstractproperty
 from datetime import datetime as dt
-from classroom import Classroom
+from model import Classroom
 
 
 class Task(ABC):

@@ -1,5 +1,5 @@
 from os import linesep
-from abstract.task import Task
+from model.abstract import Task
 
 class Dependency(Task):
 

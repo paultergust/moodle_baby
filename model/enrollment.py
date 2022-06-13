@@ -1,5 +1,5 @@
-from student import Student
-from classroom import Classroom
+from model import Student
+from model import Classroom
 
 
 class Enrollment:

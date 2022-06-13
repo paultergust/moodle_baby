@@ -1,4 +1,3 @@
-from class_ import Class
 from uuid import uuid4, UUID
 
 
