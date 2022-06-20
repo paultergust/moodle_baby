@@ -2,6 +2,7 @@ from rich import print as rprint
 from rich.panel import Panel
 from rich.layout import Layout
 from rich.prompt import Prompt
+DEFAULT_TITLE = 'Moodle Baby'
 
 class BaseView:
 
@@ -10,7 +11,7 @@ class BaseView:
 
     #decorator
     def render(function):
-        def function_call(self, msg, title):
+        def function_call(self, msg, title=DEFAULT_TITLE):
             function(self, msg, title)
             rprint(self.__layout)
         return function_call
@@ -19,19 +20,19 @@ class BaseView:
         return Prompt.ask('> ')
 
     @render
-    def bottom_panel(self, msg, title):
+    def bottom_panel(self, msg, title=DEFAULT_TITLE):
         self.__bottom_panel.update(Panel(msg, title=title))
 
     @render
-    def top_panel(self, msg, title):
+    def top_panel(self, msg, title=DEFAULT_TITLE):
         self.__top_panel.update(Panel(msg, title=title))
 
     @render
-    def left_panel(self, msg, title):
+    def left_panel(self, msg, title=DEFAULT_TITLE):
         self.__left_panel.update(Panel(msg, title=title))
 
     @render
-    def right_panel(self, msg, title):
+    def right_panel(self, msg, title=DEFAULT_TITLE):
         self.__right_panel.update(Panel(msg, title=title))
 
     def build_panels(self):
@@ -54,8 +55,8 @@ class BaseView:
         self.__layout['top_panel'].size = 5
         self.__layout['bottom_panel'].size = 4
 
-        self.top_panel('Moodle Baby', 'Moodle Baby')
-        self.left_panel('Moodle Baby', 'Moodle Baby')
-        self.right_panel('Moodle Baby', 'Moodle Baby')
-        self.bottom_panel('Moodle Baby', 'Moodle Baby')
+        self.top_panel(DEFAULT_TITLE, DEFAULT_TITLE)
+        self.left_panel(DEFAULT_TITLE, DEFAULT_TITLE)
+        self.right_panel(DEFAULT_TITLE, DEFAULT_TITLE)
+        self.bottom_panel(DEFAULT_TITLE, DEFAULT_TITLE)
 
