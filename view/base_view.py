@@ -1,53 +1,62 @@
-from rich import print
+from rich import print as rprint
 from rich.panel import Panel
 from rich.layout import Layout
 from rich.prompt import Prompt
+DEFAULT_TITLE = 'Moodle Baby'
 
 class BaseView:
 
     def __init__(self):
-        self.__header == None
-        self.__left_pannel  = None
-        self.__right_pannel = None
-        try:
-            self.render()
-        except KeyboardInterrupt:
-            exit(0)
+        self.build_panels()
 
+    #decorator
+    def render(function):
+        def function_call(self, msg, title=DEFAULT_TITLE):
+            function(self, msg, title)
+            rprint(self.__layout)
+        return function_call
 
-    def render(self):
-        while True:
-            prompt = Prompt.ask('> ')
-            self.check_input(prompt)
-            self.__layout = Layout()
-            layout.split_column(
-                Layout(name="header"),
-                Layout(name="pannels"),
-                Layout(name="bottom_pannel")
-            )
+    def prompt(self):
+        return Prompt.ask('> ')
 
-            layout['header'].update(Panel(self.__header, padding=1))
-            layout['header'].size = 5
+    @render
+    def bottom_panel(self, msg, title=DEFAULT_TITLE):
+        self.__bottom_panel.update(Panel(msg, title=title))
 
-            layout['pannels'].split_row(
-                Layout(name="left"),
-                Layout(name="right")
-            )
+    @render
+    def top_panel(self, msg, title=DEFAULT_TITLE):
+        self.__top_panel.update(Panel(msg, title=title))
 
-            layout['left'].update(Panel(self.__left_pannel))
-            layout['right'].update(Panel(self.__right_pannel))
+    @render
+    def left_panel(self, msg, title=DEFAULT_TITLE):
+        self.__left_panel.update(Panel(msg, title=title))
 
-            layout['bottom_pannel'].update(Panel(Prompt.ask('> '), title='Command'))
-            layout['bottom_pannel'].size = 5
-            print(layout)
+    @render
+    def right_panel(self, msg, title=DEFAULT_TITLE):
+        self.__right_panel.update(Panel(msg, title=title))
 
+    def build_panels(self):
+        self.__layout = Layout()
+        self.__layout.split_column(
+            Layout(name="top_panel"),
+            Layout(name="panels"),
+            Layout(name="bottom_panel")
+        )
 
+        self.__layout['panels'].split_row(
+            Layout(name="left_panel"),
+            Layout(name="right_panel")
+        )
 
+        self.__top_panel =    self.__layout['top_panel']
+        self.__bottom_panel = self.__layout['bottom_panel']
+        self.__left_panel  =  self.__layout['panels']['left_panel']
+        self.__right_panel =  self.__layout['panels']['right_panel']
+        self.__layout['top_panel'].size = 5
+        self.__layout['bottom_panel'].size = 4
 
-    def check_input(self, prompt):
-        if prompt in ['exit', 'sair', 'bye', 'xau']:
-            exit(0)
+        self.top_panel(DEFAULT_TITLE, DEFAULT_TITLE)
+        self.left_panel(DEFAULT_TITLE, DEFAULT_TITLE)
+        self.right_panel(DEFAULT_TITLE, DEFAULT_TITLE)
+        self.bottom_panel(DEFAULT_TITLE, DEFAULT_TITLE)
 
-
-    def err_out(self, msg):
-        pass
