@@ -28,3 +28,6 @@ class Student:
     def parent(self, parent: Parent):
         self.__parent = parent
 
+    def __str__(self):
+        return self.name
+
