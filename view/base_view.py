@@ -3,7 +3,7 @@ from rich.panel import Panel
 from rich.layout import Layout
 from rich.prompt import Prompt
 
-class AbstractViewClass:
+class BaseView:
 
     def __init__(self):
         self.__header == None
@@ -23,7 +23,7 @@ class AbstractViewClass:
             layout.split_column(
                 Layout(name="header"),
                 Layout(name="pannels"),
-                Layout(name="prompt_hist")
+                Layout(name="bottom_pannel")
             )
 
             layout['header'].update(Panel(self.__header, padding=1))
@@ -37,8 +37,8 @@ class AbstractViewClass:
             layout['left'].update(Panel(self.__left_pannel))
             layout['right'].update(Panel(self.__right_pannel))
 
-            layout['prompt_hist'].update(Panel(Prompt.ask('> '), title='Command'))
-            layout['prompt_hist'].size = 5
+            layout['bottom_pannel'].update(Panel(Prompt.ask('> '), title='Command'))
+            layout['bottom_pannel'].size = 5
             print(layout)
 
 
@@ -48,3 +48,6 @@ class AbstractViewClass:
         if prompt in ['exit', 'sair', 'bye', 'xau']:
             exit(0)
 
+
+    def err_out(self, msg):
+        pass
