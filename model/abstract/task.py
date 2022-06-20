@@ -5,7 +5,7 @@ from model import Classroom
 
 class Task(ABC):
 
-    def __init__(self, start: dt, finish: dt, description: str):
+    def __init__(self, description: str, start: dt=datetime.now(), finish: dt=datetime.now()):
         self.__start = start
         self.__finish = finish
         self.__description = description
