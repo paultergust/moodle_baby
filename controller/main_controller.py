@@ -1,11 +1,14 @@
 from abc import abstractmethod
 from view import BaseView
+from controller import LoginController
 
 
 class MainController:
 
     def __init__(self):
         self.view = BaseView()
+        self.__login_controller = None
+        self.current_user = self.__login_controller.teacher_logged() or self.__login_controller.parent_logged()
 
     @abstractmethod
     def create(self):
@@ -24,7 +27,7 @@ class MainController:
         pass
 
     def stringify(self, items):
-        strings = [str(obj) + "\n" for obj in items]
+        strings = [str(key) + " - " + str(obj) + "\n" for (key, value) in items.items()]
         return ''.join(strings)
 
     def prompt(self, msg, title):
