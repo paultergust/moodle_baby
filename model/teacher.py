@@ -1,4 +1,4 @@
-from abstract import User
+from model import User
 
 class Teacher(User):
 

@@ -7,9 +7,10 @@ from .enrollment import Enrollment
 from .event import Event
 from .homework import Homework
 from .student import Student
-
+from .abstract.User import User
 
 __all__ = [
+    'User',
     'Message',
     'Teacher',
     'Parent',
