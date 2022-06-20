@@ -3,7 +3,7 @@ from rich.panel import Panel
 from rich.layout import Layout
 from rich.prompt import Prompt
 
-class AbstractViewClass:
+class BaseView:
 
     def __init__(self):
         self.__header == None
