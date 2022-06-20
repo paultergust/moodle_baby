@@ -25,3 +25,7 @@ class Message():
     @property
     def sent_date(self) -> datetime:
         return self.__sent_date
+
+    def __str__(self):
+        return self.subject
+

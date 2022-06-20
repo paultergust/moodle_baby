@@ -35,3 +35,6 @@ class Task(ABC):
     def description(self, description: str):
         self.__description = description
 
+    def __str__(self):
+        return self.description
+
