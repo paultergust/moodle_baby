@@ -1,5 +1,8 @@
 from enum import Enum
 
+class PROMPT(Enum):
+    NAME = ''
+    
 class CREATE(Enum):
     ACTION = ''
     SUCCESS = ''
