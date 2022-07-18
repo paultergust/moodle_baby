@@ -1,7 +1,7 @@
 from model import Parent
-from view import parent_view_parent_constants as parent_constants
+from view import parent_view_constants as parent_constants
 from view import message_view_constants as msg_constants
-from controller import MainController
+from controller.main_controller import MainController
 
 class ParentController(MainController):
 

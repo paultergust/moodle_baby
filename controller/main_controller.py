@@ -1,7 +1,5 @@
 from abc import abstractmethod
 from view import BaseView
-from controller import LoginController
-
 
 class MainController:
 
@@ -27,7 +25,7 @@ class MainController:
         pass
 
     def stringify(self, items):
-        strings = [str(key) + " - " + str(obj) + "\n" for (key, value) in items.items()]
+        strings = [str(key) + " - " + str(value) + "\n" for (key, value) in items.items()]
         return ''.join(strings)
 
     def prompt(self, msg, title):

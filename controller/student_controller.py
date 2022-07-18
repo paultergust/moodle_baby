@@ -13,7 +13,7 @@ class StudentController(MainController):
         student_name = self.prompt(constants.PROMPT.name, title)
         parent_name = self.prompt(constants.PROMPT_PARENT.name, title)
         if self.fetch_by_name(student_name):
-            sef.view.bottom_panel(constants.Update.FAILURE.name, title)
+            self.view.bottom_panel(constants.Update.FAILURE.name, title)
             return None
 
         new_student = Student(student_name, parent_name)

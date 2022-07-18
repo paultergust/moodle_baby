@@ -1,10 +1,11 @@
 from os import linesep
-from datetime import datetime, timedelta
-from model.abstract import Task
+from datetime import timedelta
+from datetime import datetime as dt
+from model.abstract.task import Task
 
 class Dependency(Task):
 
-    def __init__(self, description: str, start: dt=datetime.now(), finish: dt=datetime.now()):
+    def __init__(self, description: str, start: dt=dt.now(), finish: dt=dt.now()):
         finish = finish + timedelta(days=7)
         super().__init__(start, finish, description)
 

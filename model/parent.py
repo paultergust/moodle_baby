@@ -1,4 +1,4 @@
-from abstract import User
+from model.abstract.user import User
 
 class Parent(User):
 

@@ -6,7 +6,7 @@ class GeneralView():
         for k in options:
             print(k)
         r = input(input_display)
-        return r.strip().casefold()
+        return r.strip().caselfold()
     
     def display_list(self, l):
         print(l)
