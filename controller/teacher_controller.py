@@ -1,7 +1,7 @@
 from model import Teacher
 from view import teacher_view_constants as teacher_constants
 from view import message_view_constants as msg_constants
-from controller import MainController
+from controller.main_controller import MainController
 
 class TeacherController(MainController):
 

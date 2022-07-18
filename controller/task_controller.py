@@ -1,5 +1,5 @@
 from controller import MainController
-from model.abstract import Task
+from model.abstract.task import Task
 from model import Dependency, Event, Homework
 from view import task_view_constants as constants
 
@@ -13,7 +13,7 @@ class TaskController(MainController):
         title = constants.Create.ACTION.name
         task_desc = self.prompt(constants.PROMPT.name, title)
         if self.fetch_by_name(task_desc):
-            sef.view.bottom_panel(constants.Update.FAILURE.name, title)
+            self.view.bottom_panel(constants.Update.FAILURE.name, title)
             return None
 
         choice = self.check_type()

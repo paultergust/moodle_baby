@@ -1,4 +1,5 @@
 from uuid import uuid4, UUID
+from model.parent import Parent
 
 
 class Student:
@@ -9,7 +10,7 @@ class Student:
         self.__parent = Parent(parent_name)
 
     @property
-    def id(self) -> uuid.UUID:
+    def id(self) -> UUID:
         return self.__id
 
     @property

@@ -1,6 +1,7 @@
 from os import linesep
+from datetime import datetime as dt
 from datetime import datetime, timedelta
-from model.abstract import Task
+from model.abstract.task import Task
 
 class Homework(Task):
 

@@ -11,7 +11,7 @@ class ClassroomController(MainController):
         title = constants.Create.ACTION.name
         classroom_name = self.prompt(constants.PROMPT.name, title)
         if self.fetch_by_name(classroom_name):
-            sef.view.bottom_panel(constants.Update.FAILURE.name, title)
+            self.view.bottom_panel(constants.Update.FAILURE.name, title)
             return None
 
         new_classroom = Classroom(classroom_name, self.current_user)
@@ -27,7 +27,7 @@ class ClassroomController(MainController):
         title = constants.Update.ACTION.name
         classroom_name = self.prompt(constants.PROMPT.name, title)
         if self.fetch_by_name(classroom_name):
-            sef.view.bottom_panel(constants.Update.FAILURE.name, title)
+            self.view.bottom_panel(constants.Update.FAILURE.name, title)
             return None
 
         classroom = self.__classrooms[index]
