@@ -1,6 +1,6 @@
 from traceback import format_list
 import PySimpleGUI as sg
-from data_classes import FormField
+from data_classes import FormField, RecordField
 
 
 class BaseGui:
@@ -70,3 +70,16 @@ class BaseGui:
         window = sg.Window("Moodle Baby", layout, size=(400, 400),
                            margins=(2, 2), finalize=True, resizable=True)
         return window.read()
+
+    def show_layout(self, items: list[RecordField]):
+        frame = sg.Frame(
+            "Login",
+            [[sg.Text(item.name, size=(15, 1)), sg.Text(
+                item.value, size=(15, 1))] for item in items],
+            pad=(5, 3),
+            expand_x=True,
+            expand_y=True,
+            background_color="#404040",
+            border_width=0,
+        )
+        return self.catch_and_return([[frame], [sg.Button('Voltar')]])
