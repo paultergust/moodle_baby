@@ -28,4 +28,4 @@ class DAO(ABC):
         return self.__cache.get(key, None)
     
     def get_all(self):
-        return self.__cache.values()
+        return self.__cache.values() or []
