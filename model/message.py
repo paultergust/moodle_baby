@@ -3,13 +3,23 @@ import uuid
 
 class Message():
 
-    def __init__(self, subject, body, sent_date) -> None:
+    def __init__(self, sender, receiver, subject, body, sent_date) -> None:
         self.__id = uuid.uuid4()
         self.__subject = subject
         self.__body = body
         self.__sent_date = sent_date
+        self.__sender = sender
+        self.__receiver = receiver
         self.__chat = []
     
+    @property
+    def sender(self):
+        return self.__sender
+    
+    @property
+    def receiver(self):
+        return self.__receiver
+
     @property
     def id(self) -> uuid.UUID:
         return self.__id

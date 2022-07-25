@@ -1,3 +1,4 @@
+import uuid
 from abc import ABC, abstractproperty
 from datetime import datetime as dt
 from datetime import datetime
@@ -7,9 +8,14 @@ from model import Classroom
 class Task(ABC):
 
     def __init__(self, description: str, start: dt=datetime.now(), finish: dt=datetime.now()):
+        self.__id = uuid.uuid4()
         self.__start = start
         self.__finish = finish
         self.__description = description
+        
+    @property
+    def id(self):
+        return self.__id
 
     @property
     def start(self) -> dt:

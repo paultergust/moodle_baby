@@ -7,7 +7,6 @@ class User(ABC):
     def __init__(self, name) -> None:
         self.__id = uuid.uuid4()
         self.__name = name
-        self.__messages = []
 
     @property
     def name(self) -> str:
