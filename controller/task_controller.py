@@ -2,35 +2,30 @@ from controller import MainController
 from model.abstract.task import Task
 from model import Dependency, Event, Homework
 from view import task_view_constants as constants
+from daos.taskDAO import TaskDAO
 
 
 class TaskController(MainController):
 
     def __init__(self):
-        self.__tasks = {}
+        self.__dao = TaskDAO()
 
     def create(self):
         title = constants.Create.ACTION.name
         task_desc = self.prompt(constants.PROMPT.name, title)
         if self.fetch_by_name(task_desc):
-            self.view.bottom_panel(constants.Update.FAILURE.name, title)
             return None
 
         choice = self.check_type()
         new_task = self.build_by_choice(choice, task_desc)
-        self.__tasks.append(new_task)
-        self.view.right_panel(self.stringify(self.__tasks), constants.List.ACTION.name)
-        self.view.bottom_panel(constants.Create.ACTION.name, title)
+
+        self.__dao.add(new_task.id, new_task)
 
     def list(self):
-        class_list = self.stringify(self.__tasks)
-        self.view.right_panel(class_list, constants.List.ACTION.name)
+        class_list = self.__dao.get_all()
 
-    def delete(self, index):
-        title = constants.Delete.ACTION.name
-        del(self.__tasks[index])
-        self.view.right_panel(self.stringify(self.__tasks), constants.List.ACTION.name)
-        self.view.bottom_panel(constants.Delete.ACTION.name, title)
+    def delete(self, task):
+        self.__dao.delete(task)
 
     def fetch_by_name(self, name):
         return [_class for _class in self.__tasks.values() if _class.name == name][0]
