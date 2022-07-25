@@ -27,7 +27,6 @@ class BaseGui:
         layout_with_menu = layout
         window = sg.Window("Moodle Baby", layout_with_menu, size=(400, 400),
                            margins=(2, 2), finalize=True, resizable=True)
-        print(window)
         return window.Read()
 
     def form_layout(self, fields: list[FormField]):
@@ -47,6 +46,16 @@ class BaseGui:
         )
         return self.catch_and_return([[frame], [sg.Submit(), sg.Cancel()]])
 
+    def list_layout(self, items: list):
+        frame = sg.Listbox(
+            items,
+            pad=(5, 3),
+            expand_x=True,
+            expand_y=True,
+            background_color="#404040",
+        )
+        return self.catch_and_return([[frame], [sg.Button('Voltar')]])
+
     def login_layout(self):
         frame = sg.Frame(
             "Login",
@@ -61,27 +70,3 @@ class BaseGui:
         window = sg.Window("Moodle Baby", layout, size=(400, 400),
                            margins=(2, 2), finalize=True, resizable=True)
         return window.read()
-
-    def values(self):
-        return self.__values
-
-    def event(self):
-        return self.__event
-
-    def form_fields(self):
-        return [
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-        ]
-
-
-bg = BaseGui('')
-foo = bg.form_fields()
-event, values = bg.login_layout()
-print(event, values)
