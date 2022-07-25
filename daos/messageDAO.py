@@ -1,9 +1,9 @@
-from dao import DAO
+from daos.dao import DAO
 
 class MessageDAO(DAO):
     
     def __init__(self):
-        super().__init__('messages.pkl')
+        super().__init__('pkls/messages.pkl')
     
     def add(self, message):
         super().add(message.id, message)

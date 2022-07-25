@@ -11,7 +11,7 @@ class DAO(ABC):
             self.__dump()
     
     def __load(self):
-        self.__cache = pickle.load(self.__cache, 'rb')
+        self.__cache = pickle.load(open(self.__source, 'rb'))
 
     def __dump(self):
         pickle.dump(self.__cache, open(self.__source, 'wb'))

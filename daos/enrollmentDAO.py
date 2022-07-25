@@ -1,9 +1,9 @@
-from dao import DAO
+from daos.dao import DAO
 
 class EnrollmentDAO(DAO):
     
     def __init__(self):
-        super().__init__('enrollments.pkl')
+        super().__init__('pkls/enrollments.pkl')
     
     def add(self, enrollment):
         super().add(enrollment.id, enrollment)

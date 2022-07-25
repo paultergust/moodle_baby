@@ -1,8 +1,8 @@
-from dao import DAO
+from daos.dao import DAO
 
 class StudentDAO(DAO):
     def __init__(self):
-        super().__init__('students.pkl')
+        super().__init__('pkls/students.pkl')
     
     def add(self, student):
         super().add(student.id, student)

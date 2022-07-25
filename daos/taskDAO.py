@@ -1,10 +1,10 @@
 from sqlite3 import DatabaseError
-from dao import DAO
+from daos.dao import DAO
 
 class TaskDAO(DAO):
     
     def __init__(self):
-        super().__init__('tasks.pkl')
+        super().__init__('pkls/tasks.pkl')
     
     def add(self, task):
         super().add(task.id, task)

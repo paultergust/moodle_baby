@@ -1,9 +1,9 @@
-from dao import DAO
+from daos.dao import DAO
 
 class ParentDAO(DAO):
 
     def __init__(self):
-        super().__init__('parents.pkl')
+        super().__init__('pkls/parents.pkl')
     
     def add(self, parent):
         super().add(parent.id, parent)
