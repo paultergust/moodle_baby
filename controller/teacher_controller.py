@@ -1,52 +1,43 @@
 from model import Teacher
+from daos.teacherDAO import TeacherDAO
 from view import teacher_view_constants as teacher_constants
 from view import message_view_constants as msg_constants
 from controller.main_controller import MainController
+from controller.message_controller import MessageController
 
 class TeacherController(MainController):
 
     def __init__(self) -> None:
         self.__teacher_model = Teacher
-        self.__teachers = {}
+        self.__dao = TeacherDAO()
+        self.__msg_controller = MessageController()
 
     def list(self):
-        teacher_list = self.stringify(self.__teachers)
-        self.view.right_panel(teacher_list, teacher_constants.LIST.ACTION.name)        
+        teacher_list = self.__dao.get_all()
 
     
-    def retireve(self, name):
-        teacher = self.__teachers.get(name)
-        self.view.right_panel(teacher, teacher_constants.RETRIEVE.ACTION.name)
+    def retireve(self, id):
+        teacher = self.__dao.get(id)
 
     
     def create(self):
         teacher_name = self.prompt(teacher_constants.PROMPT.name, teacher_constants.CREATE.ACTION.name)
         teacher  = self.__teacher_model(name=teacher_name)
-        self.__teachers[teacher_name] = teacher
+        self.__dao.add(teacher.id, teacher)
 
-        teacher_list = self.stringify(self.__teachers)
-        self.view.right_panel(teacher_list, teacher_constants.CREATE.ACTION.name)
+        teacher_list = self.__dao.get_all()
 
     def list_messages(self, teacher):
-        msg_list =  self.stringify(teacher.messages) 
-        self.view.right_panel(msg_list, msg_constants.LIST.ACTION.name)
+        msg_list =  self.__msg_controller.list_messages(teacher)
 
-    def retrieve_message(self, teacher, msg_id):
-        msg = None
-        for cur_msg in teacher.messages:
-            if cur_msg.id == msg_id:
-                msg = cur_msg
+    def retrieve_message(self, msg_id):
+        msg = self.__msg_controller.get(msg_id)
         
         if msg:
             msg += msg.chat
-            self.view.right_panel(msg, msg_constants.RETRIEVE.ACTION.name)
-        self.view.bottom_panel(msg_constants.RETRIEVE.FAILED.name, msg_constants.RETRIEVE.ACTION.name)
 
     def delete_message(self, teacher, msg_id):
-        for idx, msg in enumerate(teacher.messages):
-            if msg.id == msg_id:
-                teacher.messages.pop(idx)
-                msg_list = self.stringify(teacher.messages)
-                self.view.right_panel(msg_list, msg_constants.DELETE.ACTION.name)
-                return
-        self.view.bottom_panel(msg_constants.DELETE.ACTION.name, msg_constants.DELETE.FAILED.name)
+        if self.__msg_controller.get(msg_id):
+            self.__msg_controller.delete(msg_id)
+            msg_list = self.list(teacher)
+            return
