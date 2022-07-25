@@ -31,8 +31,9 @@ class ParentController(MainController):
             pass
 
     def delete_message(self, parent, msg_id):
-        if self.__msg_controller.get(msg_id):
-            self.__msg_controller.delete(msg_id)    
+        msg = self.__msg_controller.get(msg_id)
+        if msg:
+            self.__msg_controller.delete(msg)    
             msg_list = self.list_messages(parent)
 
 

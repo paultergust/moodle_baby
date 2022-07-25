@@ -18,5 +18,5 @@ class MessageController():
     def get(self, id):
         return self.__dao.get(id)
     
-    def delete(self, id):
-        self.__dao.delete(id)
+    def delete(self, msg):
+        self.__dao.delete(msg.id)
