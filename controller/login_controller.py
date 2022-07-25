@@ -7,56 +7,45 @@ class LoginController:
         self.view = BaseView()
         self.__parent_controller = ParentController()
         self.__teacher_controller = TeacherController()
-        self.__teacher_logged = None
-        self.__parent_logged = None
+        self.__user = None
 
     @property
-    def teacher_logged(self):
-        return self.__teacher_logged
-    
-    @property
-    def parent_logged(self):
-        return self.__parent_logged
+    def user(self):
+        return self.__user
 
     def logout(self):
-        self.__parent_logged = None
-        self.__teacher_logged = None
+        self.__user = None
 
     def login(self):
         options = {
-            'teacher': self.__log_teacher,
-            'parent': self.__log_parent
+            'teacher': self.__login_teacher,
+            'parent': self.__login_parent
         }
         
-        self.view.left_panel(str(options))
-        resp = self.view.prompt()
+        resp = input('Choose teacher or parent')
+
         if resp not in options:
-            self.view.bottom_panel(f'<{resp}> not in Options')
+            print('not valid')
             self.login()
 
         options.get(resp)()
     
-    def __log_parent(self):
-        parents = self.__parent_controller.list()
-        self.view.right_panel(parents)
-        resp = self.view.bottom_panel([], input_display='Select a Parent by name')
-    
-        for parent in parents:
-            if parent.name == resp:
-                self.__parent_logged = parent
-        else:
-            self.view.bottom_panel(f'Parent with id <{resp}> does not exist')
-            self.__log_parent()
+    def __login_parent(self):
+        email = input('email: ')
+        parent = self.__parent_controller.get_by_email(email)
 
-    def __log_teacher(self):
-        teachers = self.__teacher_controller.list()
-        self.view.bottom_panel(teachers)
-        resp = self.view.bottom_panel([], input_display='Select a Teacher by name')
-    
-        for teacher in teachers:
-            if teacher.name == resp:
-                self.__teacher_logged = teacher
+        if parent:
+            self.__user = parent
         else:
-            self.view.bottom_panel(f'Teacher with id <{resp}> does not exist')
-            self.__log_teacher()
-             
+            print('Email not found')
+            self.__login_parent()
+
+    def __login_teacher(self):
+        email = input('email: ')
+        teacher = self.__teacher_controller.get_by_email(email)
+        
+        if teacher:
+            self.__user = teacher
+        else:
+            print('Email not found')
+            self.__login_teacher()

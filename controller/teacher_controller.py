@@ -18,11 +18,19 @@ class TeacherController(MainController):
     
     def retireve(self, id):
         teacher = self.__dao.get(id)
+    
+    def get_by_email(self, email):
+        for teacher in self.__dao.get_all():
+            if teacher.email == email:
+                return email
+        return None
 
     
     def create(self):
-        teacher_name = self.prompt(teacher_constants.PROMPT.name, teacher_constants.CREATE.ACTION.name)
-        teacher  = self.__teacher_model(name=teacher_name)
+        name = '' # get name
+        email = '' #get email
+
+        teacher  = self.__teacher_model(name=name, email=email)
         self.__dao.add(teacher.id, teacher)
 
         teacher_list = self.__dao.get_all()

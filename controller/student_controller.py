@@ -11,12 +11,11 @@ class StudentController(MainController):
 
     def create(self):
         title = constants.Create.ACTION.name
-        student_name = self.prompt(constants.PROMPT.name, title)
-        parent_name = self.prompt(constants.PROMPT_PARENT.name, title)
-        if self.fetch_by_name(student_name):
-            return None
-
-        new_student = Student(student_name, parent_name)
+        student_name = '' # get student name
+        parent_name = '' # get parent name
+        parent_email = '' # get parent email
+    
+        new_student = Student(student_name, parent_name, parent_email)
         self.__dao.add(new_student.id, new_student)
 
         self.__students.append(new_student)

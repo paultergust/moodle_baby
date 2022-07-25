@@ -13,9 +13,16 @@ class ParentController(MainController):
     
     def list(self):
         parent_list = self.__dao.get_all()
+        return parent_list
     
     def retireve(self, id) -> Parent:
         parent =  self.__dao.get(id)
+    
+    def get_by_email(self, email):
+        for parent in self.__dao.get_all():
+            if parent.email == email:
+                return email
+        return None
     
     def add(self, parent):
         self.__dao.add(parent.id, parent)
