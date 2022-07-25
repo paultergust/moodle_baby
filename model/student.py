@@ -4,10 +4,10 @@ from model.parent import Parent
 
 class Student:
 
-    def __init__(self, name: str, parent_name: str):
+    def __init__(self, name: str, parent_name: str, parent_email: str):
         self.__id = uuid4()
         self.__name = name
-        self.__parent = Parent(parent_name)
+        self.__parent = Parent(parent_name, parent_email)
 
     @property
     def id(self) -> UUID:

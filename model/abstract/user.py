@@ -4,9 +4,14 @@ from abc import ABC, abstractclassmethod
 class User(ABC):
 
     @abstractclassmethod
-    def __init__(self, name) -> None:
+    def __init__(self, name, email) -> None:
         self.__id = uuid.uuid4()
         self.__name = name
+        self.__email = email
+
+    @property
+    def email(self):
+        return self.__email
 
     @property
     def name(self) -> str:
