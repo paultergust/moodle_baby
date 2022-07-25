@@ -62,26 +62,3 @@ class BaseGui:
                            margins=(2, 2), finalize=True, resizable=True)
         return window.read()
 
-    def values(self):
-        return self.__values
-
-    def event(self):
-        return self.__event
-
-    def form_fields(self):
-        return [
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-            FormField(name='foo', key='foo'),
-        ]
-
-
-bg = BaseGui('')
-foo = bg.form_fields()
-event, values = bg.login_layout()
-print(event, values)
