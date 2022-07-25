@@ -28,6 +28,8 @@ class MainController:
         strings = [str(key) + " - " + str(value) + "\n" for (key, value) in items.items()]
         return ''.join(strings)
 
+    #controller will need to have methods to interact with each type of view
+    # form view, list view, prompt, result, etc
     def prompt(self, msg, title):
         self.view.bottom_panel(msg, title)
         return self.view.prompt()
