@@ -1,4 +1,6 @@
 from model import Parent
+from daos.parentDAO import ParentDAO
+from daos.messageDAO import MessageDAO
 from view import parent_view_constants as parent_constants
 from view import message_view_constants as msg_constants
 from controller.main_controller import MainController
@@ -6,44 +8,36 @@ from controller.main_controller import MainController
 class ParentController(MainController):
 
     def __init__(self) -> None:
-        self.__parents = {}
+        self.__dao = ParentDAO()
+        self.__msg_dao = MessageDAO()
     
     def list(self):
-        parent_list = self.stringify(self.__parents)
-        self.view.right_panel(parent_list, parent_constants.LIST.ACTION.name)        
+        parent_list = self.__dao.get_all()
     
-    def retireve(self, name) -> Parent:
-        parent = self.__parents.get(name)        
-        self.view.right_panel(parent, parent_constants.RETRIEVE.ACTION.name)
+    def retireve(self, id) -> Parent:
+        parent =  self.__dao.get(id)
     
     def add(self, parent):
-        self.__parents[parent.name] = parent
+        self.__dao.add(parent.id, parent)
 
 
     def list_messages(self, parent):
-        msg_list =  self.stringify(parent.messages)
-        self.view.right_panel(msg_list, msg_constants.LIST.ACTION.name)
+        msg_list = {}
+        for msg in self.__msg_dao.get_all().values():
+            if msg.sender == parent or msg.receiver == parent:
+                msg_list[msg.id] = msg
         
 
     def retrieve_message(self, parent, msg_id):
-        msg = None
-        for cur_msg in parent.messages:
-            if cur_msg.id == msg_id:
-                msg = cur_msg
+        msg = self.__msg_dao.get(msg_id)
         if msg:
-            msg += msg.chat
-            self.view.right_panel(msg, msg_constants.RETRIEVE.ACTION.name)
-        self.view.bottom_panel(msg_constants.RETRIEVE.FAILED.name, msg_constants.RETRIEVE.ACTION.name)
+            pass
 
     def delete_message(self, parent, msg_id):
-        for idx, msg in enumerate(parent.messages):
-            if msg.id == msg_id:
-                parent.messages.pop(idx)
-                
-                msg_list = self.stringify(parent.messages)
-                self.view.right_panel(msg_list, msg_constants.DELETE.ACTION.name)
-                return
-        self.view.bottom_panel(msg_constants.DELETE.ACTION.name, msg_constants.DELETE.FAILED.name)
+        if self.__msg_dao.get(msg_id):
+            self.__msg_dao.delete(msg_id)    
+            msg_list = self.list_messages(parent)
+
 
 
 
